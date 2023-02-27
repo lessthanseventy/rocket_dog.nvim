@@ -1,36 +1,13 @@
-# 🏙 Tokyo Night
+# 🏙 Rocket Dog
 
 A dark and light Neovim theme written in Lua ported from the Visual Studio Code
-[TokyoNight](https://github.com/enkia/tokyo-night-vscode-theme) theme. Includes
-extra themes for Kitty, Alacritty, iTerm and Fish.
-
-## Storm
-
-![image](https://user-images.githubusercontent.com/292349/115295095-3a9e5080-a10e-11eb-9aed-6054488c46ce.png)
-
-## Night
-
-![image](https://user-images.githubusercontent.com/292349/115295327-7afdce80-a10e-11eb-89b3-2591262bf95a.png)
-
-## Moon
-
-![image](https://user-images.githubusercontent.com/292349/190951628-10ba28a1-57ff-4479-8eab-47400a402242.png)
-
-## Day
-
-![image](https://user-images.githubusercontent.com/292349/115996270-78c6c480-a593-11eb-8ed0-7d1400b058f5.png)
+[tokyonight](https://github.com/folke/tokyonight.nvim) theme.
 
 ## ✨ Features
 
 - supports the latest Neovim 5.0 features like TreeSitter and LSP
-- minimal inactive statusline
 - vim terminal colors
 - darker background for sidebar-like windows
-- color configs for
-  [Kitty](https://sw.kovidgoyal.net/kitty/conf.html?highlight=include),
-  [Alacritty](https://github.com/alacritty/alacritty) and
-  [Fish Shell](https://fishshell.com/)
-- **lualine** theme
 
 ### Plugin Support
 
@@ -46,9 +23,7 @@ extra themes for Kitty, Alacritty, iTerm and Fish.
 - [Indent Blankline](https://github.com/lukas-reineke/indent-blankline.nvim)
 - [Dashboard](https://github.com/glepnir/dashboard-nvim)
 - [BufferLine](https://github.com/akinsho/nvim-bufferline.lua)
-- [Barbecue](https://github.com/utilyre/barbecue.nvim)
 - [Lualine](https://github.com/hoob3rt/lualine.nvim)
-- [Lightline](https://github.com/itchyny/lightline.vim)
 - [Neogit](https://github.com/TimUntersberger/neogit)
 - [vim-sneak](https://github.com/justinmk/vim-sneak)
 - [Fern](https://github.com/lambdalisue/fern.vim)
@@ -67,13 +42,41 @@ Install the theme with your preferred package manager:
 [vim-plug](https://github.com/junegunn/vim-plug)
 
 ```vim
-Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'lessthanseventy/rocket_dog.nvim', { 'branch': 'main' }
 ```
 
 [packer](https://github.com/wbthomason/packer.nvim)
 
 ```lua
-use 'folke/tokyonight.nvim'
+use 'lessthanseventy/rocket_dog.nvim'
+```
+
+[lazy](https://github.com/folke/lazy.nvim)
+
+```lua
+  {
+    "lessthanseventy/rocket_dog.nvim",
+    config = function()
+      require("rocket_dog").setup({
+        style = "night",        -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
+        light_style = "day",    -- The theme is used when the background is set to light
+        terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
+        styles = {
+          -- Style to be applied to different syntax groups
+          -- Value is any valid attr-list value for `:help nvim_set_hl`
+          comments = { italic = false },
+          keywords = { italic = false },
+          functions = {},
+          variables = {},
+          -- Background styles. Can be "dark", "transparent" or "normal"
+          sidebars = "dark",         -- style for sidebars, see below
+          floats = "dark",           -- style for floating windows
+        },
+        sidebars = { "qf", "help" }, -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
+      })
+      vim.cmd("colorscheme rocket_dog")
+    end,
+  },
 ```
 
 ## 🚀 Usage
@@ -82,54 +85,54 @@ Enable the colorscheme:
 
 ```vim
 " Vim Script
-colorscheme tokyonight
+colorscheme rocket_dog
 
 " There are also colorschemes for the different styles
-colorscheme tokyonight-night
-colorscheme tokyonight-storm
-colorscheme tokyonight-day
-colorscheme tokyonight-moon
+colorscheme rocket_dog-night
+colorscheme rocket_dog-storm
+colorscheme rocket_dog-day
+colorscheme rocket_dog-moon
 ```
 
 ```lua
 -- Lua
-vim.cmd[[colorscheme tokyonight]]
+vim.cmd[[colorscheme rocket_dog]]
 ```
 
-To enable the `tokyonight` theme for `Barbecue`:
+To enable the `rocket_dog` theme for `Barbecue`:
 
 ```lua
 require('barbecue').setup {
   -- ... your barbecue config
-  theme = 'tokyonight',
+  theme = 'rocket_dog',
   -- ... your barbecue config
 }
 ```
 
-To enable the `TokyoNight` theme for `Lualine`, simply specify it in your
+To enable the `rocket_dog` theme for `Lualine`, simply specify it in your
 lualine settings:
 
 ```lua
 require('lualine').setup {
   options = {
     -- ... your lualine config
-    theme = 'tokyonight'
+    theme = 'rocket_dog'
     -- ... your lualine config
   }
 }
 ```
 
-To enable the `tokyonight` colorscheme for `Lightline`:
+To enable the `rocket_dog` colorscheme for `Lightline`:
 
 ```vim
 " Vim Script
-let g:lightline = {'colorscheme': 'tokyonight'}
+let g:lightline = {'colorscheme': 'rocket_dog'}
 ```
 
 ## ⚙️ Configuration
 
 > ❗️ configuration needs to be set **BEFORE** loading the color scheme with
-> `colorscheme tokyonight`
+> `colorscheme rocket_dog`
 
 The theme comes in four styles, `storm`, `moon`, a darker variant `night` and `day`.
 
@@ -138,10 +141,10 @@ The **day** style will be used if:
 - `{ style = "day"}` was passed to `setup(options)`
 - or `vim.o.background = "light"`
 
-TokyoNight will use the default options, unless you call `setup`.
+rocket_dog will use the default options, unless you call `setup`.
 
 ```lua
-require("tokyonight").setup({
+require("rocket_dog").setup({
   -- your configuration comes here
   -- or leave it empty to use the default settings
   style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
@@ -187,12 +190,12 @@ How the highlight groups are calculated:
 3. the **colors** are then used to generate the highlight groups
 4. `config.on_highlights(highlights, colors)` is ran, where you can overide the highlight groups
 
-Please refer to default values for `colors` and `highlights` for the [storm](extras/lua/tokyonight_storm.lua), [moon](extras/lua/tokyonight_moon.lua), [night](extras/lua/tokyonight_night.lua), [day](extras/lua/tokyonight_day.lua)
+Please refer to default values for `colors` and `highlights` for the [storm](extras/lua/rocket_dog_storm.lua), [moon](extras/lua/rocket_dog_moon.lua), [night](extras/lua/rocket_dog_night.lua), [day](extras/lua/rocket_dog_day.lua)
 
 Example for changing some settings and colors
 
 ```lua
-require("tokyonight").setup({
+require("rocket_dog").setup({
   -- use the night style
   style = "night",
   -- disable italic for functions
@@ -212,7 +215,7 @@ Example to make Telescope
 [borderless](https://github.com/nvim-telescope/telescope.nvim/wiki/Gallery#borderless)
 
 ```lua
-require("tokyonight").setup({
+require("rocket_dog").setup({
   on_highlights = function(hl, c)
     local prompt = "#2d3149"
     hl.TelescopeNormal = {
@@ -270,8 +273,8 @@ You can easily use the color palette for other plugins inside your Neovim
 config:
 
 ```lua
-local colors = require("tokyonight.colors").setup() -- pass in any of the config options as explained above
-local util = require("tokyonight.util")
+local colors = require("rocket_dog.colors").setup() -- pass in any of the config options as explained above
+local util = require("rocket_dog.util")
 
 aplugin.background = colors.bg_dark
 aplugin.my_error = util.brighten(colors.red1, 0.3)
@@ -284,9 +287,9 @@ that can be used to generate themes for the different styles.
 
 How to add a new extra template:
 
-1. create a file like `lua/tokyonight/extra/cool-app.lua`
+1. create a file like `lua/rocket_dog/extra/cool-app.lua`
 2. add the name and output file extension to the `extras` table in
-   `lua/tokyonight/extra/init.lua`
-3. in Nvim, run `:lua require("tokyonight.extra").setup()` to generate / update
+   `lua/rocket_dog/extra/init.lua`
+3. in Nvim, run `:lua require("rocket_dog.extra").setup()` to generate / update
    extra themes
 4. commit the newly created themes under `extra/`

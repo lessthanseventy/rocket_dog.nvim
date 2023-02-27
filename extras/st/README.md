@@ -1,5 +1,5 @@
 <h3 align="center">
-	Tokyonight for <a href="https://st.suckless.org/">st</a>
+	rocket_dog for <a href="https://st.suckless.org/">st</a>
 </h3>
 
 ### About
